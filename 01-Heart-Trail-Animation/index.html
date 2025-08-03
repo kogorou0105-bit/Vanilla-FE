@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Heart-Trail-Animation</title>
     <style>
       body {
         margin: 0;
@@ -38,15 +38,6 @@
     <!-- <span></span> -->
     <script>
       const container = document.querySelector("body");
-      const debouce = (fn, delay) => {
-        let timer;
-        return function (...args) {
-          clearTimeout(timer);
-          timer = setTimeout(() => {
-            fn.apply(this, args);
-          }, delay);
-        };
-      };
       const throttle = (fn, delay) => {
         let last = 0;
         return function (...args) {

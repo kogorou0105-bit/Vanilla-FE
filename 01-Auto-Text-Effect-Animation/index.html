@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto-Text-Effect-Animation</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&display=swap");
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: coral;
+      }
+      h1 {
+        font-family: "Ma Shan Zheng", cursive;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>天山雪淬三尺冰， 夜夜龙吟匣中鸣。<span>|</span></h1>
+    </div>
+    <script>
+      const poems = [
+        // 1. 宏伟风格（盛唐气象）
+        "昆仑崩云擎日轨，九鼎沸浪煮星河。",
+
+        // 2. 悲怆风格（晚唐遗响）
+        "青冢琵琶弦尽断，独留胡雁哭阴山。",
+
+        // 3. 苍劲风格（魏晋风骨）
+        "忽有石裂太古响，一鹤冲霄我亦惊。",
+
+        // 4. 奇崛风格（韩孟诗派）
+        "虬龙蜕骨悬千仞，夜夜风雷蚀篆文。",
+
+        // 5. 沉郁风格（杜甫体）
+        "万古疮痍埋铁戟，孤城落日压秦川。",
+      ];
+      const container = document.querySelector(".container h1");
+      let cI = 0;
+      let pI = 0;
+      let dir = true;
+      function updateText() {
+        const span = document.createElement("span");
+        if (cI % 2 === 0) {
+          span.style.color = "black"; // 偶数索引使用黑色
+        } else {
+          span.style.color = "white"; // 奇数索引使用白色
+        }
+        container.innerHTML = `${poems[pI].slice(0, cI)}`;
+        container.append(span);
+        if (dir) {
+          cI++;
+        } else {
+          cI--;
+        }
+        if (cI > poems[pI].length && dir) {
+          dir = false;
+        }
+        if (cI < 0 && !dir) {
+          pI++;
+          cI = 0;
+          dir = true; // 切换回正向
+          if (pI >= poems.length) {
+            pI = 0; // 重置到第一首诗
+          }
+        }
+        if (dir) {
+          const randomSpeed = Math.floor(Math.random() * 100) + 150; // 随机速度
+          setTimeout(updateText, randomSpeed); // 调整速度
+        } else {
+          const randomSpeed = Math.floor(Math.random() * 1) + 50; // 随机速度
+          setTimeout(updateText, randomSpeed); // 调整速度
+        }
+      }
+      updateText();
+    </script>
+  </body>
+</html>

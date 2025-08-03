@@ -11,10 +11,10 @@
 
 ## 🚀 项目列表
 
-| 项目名称                   | 描述         | 资源          | 状态      |
-| -------------------------- | ------------ | ------------- | --------- |
-| [Heart-Trail-Animation](#) | 小心心天上飞 | IconFinder    | ✅ 完成   |
-| [项目名称](#)              | 简短描述     | HTML, CSS, JS | 🚧 开发中 |
+| Project Name                    | Description  | Resources    | Status  |
+| ------------------------------- | ------------ | ------------ | ------- |
+| [Heart-Trail-Animation](#)      | 小心心天上飞 | IconFinder   | ✅ 完成 |
+| [Auto-Text-Effect-Animation](#) | 打印机效果   | Google Fonts | ✅ 完成 |
 
 ## 🛠️ 技术栈
 
@@ -26,9 +26,9 @@
 
 ## 📢 前端博主推荐
 
-| name                | profile                | link                                                |
-| ------------------- | ---------------------- | --------------------------------------------------- |
-| **JavaScript King** | Creativity & Tutorials | [点击访问](https://www.youtube.com/@JavaScriptKing) |
+| name                | profile                | link                                            |
+| ------------------- | ---------------------- | ----------------------------------------------- |
+| **JavaScript King** | Creativity & Tutorials | [前往](https://www.youtube.com/@JavaScriptKing) |
 
 ---
 
