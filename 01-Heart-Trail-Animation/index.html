@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        height: 100vh;
+        background-color: #000;
+        overflow: hidden;
+      }
+      span {
+        position: absolute;
+        /* top: 50%;
+        left: 50%; */
+        /* width: 100px;
+        height: 100px; */
+        background: url("https://cdn2.iconfinder.com/data/icons/free-1/128/Love__heart_like-512.png");
+        /* transform: translate(-50%, -50%); */
+        background-size: cover;
+        animation: heart 8s ease;
+      }
+      @keyframes heart {
+        0% {
+          transform: translate(0, 0);
+          opacity: 1;
+        }
+        100% {
+          transform: translate(0, -4000px);
+          opacity: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- <span></span> -->
+    <script>
+      const container = document.querySelector("body");
+      const debouce = (fn, delay) => {
+        let timer;
+        return function (...args) {
+          clearTimeout(timer);
+          timer = setTimeout(() => {
+            fn.apply(this, args);
+          }, delay);
+        };
+      };
+      const throttle = (fn, delay) => {
+        let last = 0;
+        return function (...args) {
+          const now = Date.now();
+          if (now - last > delay) {
+            last = now;
+            fn.apply(this, args);
+          }
+        };
+      };
+
+      const creation = (e) => {
+        const heart = document.createElement("span");
+        heart.style.left = e.clientX + "px";
+        heart.style.top = e.clientY + "px";
+        const size = Math.random() * 100;
+        heart.style.width = size + "px";
+        heart.style.height = size + "px";
+        container.appendChild(heart);
+        setTimeout(() => {
+          heart.remove();
+        }, 3000);
+      };
+
+      container.addEventListener("mousemove", throttle(creation, 20));
+    </script>
+  </body>
+</html>
