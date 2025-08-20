@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Drag and Drop Sorting</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        margin-top: 50px;
+      }
+      ul {
+        /* list-style: none; */
+        padding: 20px;
+        width: 500px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        background: #f9f9f9;
+      }
+      li {
+        list-style: none;
+        padding: 12px;
+        margin: 14px;
+        background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+        border-radius: 6px;
+        cursor: grab;
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1),
+          0 4px 6px rgba(0, 0, 0, 0.05);
+      }
+      li.dragging {
+        background: transparent;
+        color: transparent;
+        border: 1px dashed #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <ul id="sortable-list">
+      <li draggable="true">Item 1</li>
+      <li draggable="true">Item 2</li>
+      <li draggable="true">Item 3</li>
+      <li draggable="true">Item 4</li>
+      <li draggable="true">Item 5</li>
+    </ul>
+
+    <script>
+      class Flip {
+        constructor(elements, duration = 0.3) {
+          this.elements = elements; // 传入要监听的元素列表
+          this.duration = duration; // 过渡时间
+          this.firstMap = new Map(); // 记录元素 DOM 移动前位置
+          this.lastMap = new Map(); // 记录元素 DOM 移动后位置
+        }
+
+        //循环获取元素的初始位置
+        getFirstPosition() {
+          this.elements.forEach((ele) => {
+            const rect = ele.getBoundingClientRect();
+            this.firstMap.set(ele, {
+              left: rect.left,
+              top: rect.top,
+            });
+          });
+        }
+
+        //
+        play() {
+          this.elements.forEach((ele) => {
+            ele.style.removeProperty("transition"); // 清除过渡效果，使元素瞬间回到初始位置
+            // 记录元素 DOM 移动后位置
+            const rect = ele.getBoundingClientRect();
+            this.lastMap.set(ele, {
+              left: rect.left,
+              top: rect.top,
+            });
+            const first = this.firstMap.get(ele);
+            const last = this.lastMap.get(ele);
+
+            // 计算正确的偏移量（初始位置 - 最终位置）
+            const deltaX = first.left - last.left;
+            const deltaY = first.top - last.top;
+
+            // invert操作，使元素在渲染下一帧前瞬间移动到正确的位置
+            ele.style.transform = `translate(${deltaX}px, ${deltaY}px)`;
+
+            requestAnimationFrame(() => {
+              // 应用动画
+              ele.style.transition = `transform ${this.duration}s ease`;
+              ele.style.removeProperty("transform");
+              this.lastMap.clear();
+              this.firstMap.clear();
+            });
+          });
+        }
+      }
+      // const flip = new Flip(
+      //   Array.from(document.querySelectorAll("#sortable-list li")),
+      //   0.3
+      // );
+      const list = document.getElementById("sortable-list");
+      let draggingItem = null;
+
+      list.addEventListener("dragstart", (e) => {
+        draggingItem = e.target;
+        setTimeout(() => {
+          e.target.classList.add("dragging");
+        }, 0);
+        e.dataTransfer.effectAllowed = "move";
+      });
+      list.addEventListener("dragend", () => {
+        draggingItem.classList.remove("dragging");
+        draggingItem = null;
+      });
+      list.addEventListener("dragover", (e) => {
+        e.preventDefault();
+      });
+      list.addEventListener("dragenter", (e) => {
+        e.preventDefault();
+        e.target.style.removeProperty("transition");
+        if (e.target == list || e.target == draggingItem) return;
+        const children = Array.from(list.children);
+        const from = children.indexOf(draggingItem);
+        const to = children.indexOf(e.target);
+        const origin = e.target.getBoundingClientRect().top;
+        // flip.getFirstPosition();
+        if (from < to) {
+          e.target.insertAdjacentElement("afterend", draggingItem);
+        } else {
+          e.target.insertAdjacentElement("beforebegin", draggingItem);
+        }
+        const end = e.target.getBoundingClientRect().top;
+        const offset = origin - end;
+        e.target.style.transform = `translateY(${offset}px)`;
+        requestAnimationFrame(() => {
+          e.target.style.transition = `transform 0.3s ease`;
+          e.target.style.removeProperty("transform");
+        });
+        // flip.play();
+      });
+    </script>
+  </body>
+</html>
