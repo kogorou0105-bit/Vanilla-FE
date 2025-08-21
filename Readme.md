@@ -11,11 +11,12 @@
 
 ## 🚀 项目列表
 
-| Project Name                    | Description  | Resources    | Status  |
-| ------------------------------- | ------------ | ------------ | ------- |
-| [Heart-Trail-Animation](#)      | 小心心天上飞 | IconFinder   | ✅ 完成 |
-| [Auto-Text-Effect-Animation](#) | 打印机效果   | Google Fonts | ✅ 完成 |
-| [dnd-Sorting](#)                | 拖拽效果     | flip         | ✅ 完成 |
+| Project Name                    | Description  | Resources      | Status  |
+| ------------------------------- | ------------ | -------------- | ------- |
+| [Heart-Trail-Animation](#)      | 小心心天上飞 | IconFinder     | ✅ 完成 |
+| [Auto-Text-Effect-Animation](#) | 打印机效果   | Google Fonts   | ✅ 完成 |
+| [dnd-Sorting](#)                | 拖拽效果     | flip           | ✅ 完成 |
+| [Seamless-Carousel](#)          | 无缝轮播     | 浏览器渲染原理 | ✅ 完成 |
 
 ## 🛠️ 技术栈
 
